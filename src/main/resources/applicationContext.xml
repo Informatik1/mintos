@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config />
+
+	<context:property-placeholder location="classpath:system.properties" />
+
+	<bean id="main" class="mintos.MintosStarter">
+		<property name="transactionTableTreeTab" ref="transactionTableTreeTab" />
+		<property name="totalStatisticsTab" ref="totalStatisticsTab" />
+		<property name="statisticsTab" ref="statisticsTab" />
+	</bean>
+
+	<bean id="interestExpectedRealTotal" class="mintos.gui.tabs.graphs.InterestExpectedReal">
+	</bean>
+
+	<bean id="interestExpectedReal" class="mintos.gui.tabs.graphs.InterestExpectedReal">
+	</bean>
+
+	<bean id="lineChartMy" class="mintos.gui.LineChartMy">
+		<property name="dbProvider" ref="dbProvider" />
+	</bean>
+
+	<bean id="dbProvider" class="mintos.db.impl.mssql.DbaProvider_Mssql">
+		<property name="userName" value="${db.userName}" />
+		<property name="password" value="${db.password}" />
+		<property name="url" value="${db.url}" />
+		<property name="className" value="${db.class}" />
+	</bean>
+
+	<bean id="parser" class="mintos.parser.TransactionXslxParser">
+		<property name="dateFormat" value="${xls.parser.dateFormat}" />
+	</bean>
+
+	<bean id="transactionTableTreeTab" class="mintos.gui.tabs.TransactionTableTreeTab">
+		<constructor-arg name="title" value="Investment summary" />
+		<property name="dbProvider" ref="dbProvider" />
+		<property name="lineChartMy" ref="lineChartMy" />
+		<property name="defaultCurrency" value="${default.currency}" />
+		<property name="parser" ref="parser" />
+    <property name="inputFolder" value="${xls.parser.inputFolder}" />
+	</bean>
+
+	<bean id="totalStatisticsTab" class="mintos.gui.tabs.TotalStatisticsTab">
+		<constructor-arg name="title" value="Total statistics" />
+		<property name="dbProvider" ref="dbProvider" />
+		<property name="interestExpectedReal" ref="interestExpectedRealTotal" />
+	</bean>
+
+	<bean id="statisticsTab" class="mintos.gui.tabs.StatisticsTab">
+		<constructor-arg name="title" value="Statistics" />
+		<property name="dbProvider" ref="dbProvider" />
+		<property name="interestExpectedReal" ref="interestExpectedReal" />
+    <property name="defaultCurrency" value="${default.currency}" />
+	</bean>
+</beans>
