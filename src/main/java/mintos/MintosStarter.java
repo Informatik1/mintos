@@ -51,9 +51,9 @@ public class MintosStarter extends Application implements InitializingBean {
   @Override
   public void start(Stage stage) {
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-     transactionTableTreeTab = context.getBean(TransactionTableTreeTab.class);
-     totalStatisticsTab = context.getBean(TotalStatisticsTab.class);
-     statisticsTab  = context.getBean(StatisticsTab.class);
+    transactionTableTreeTab = context.getBean(TransactionTableTreeTab.class);
+    totalStatisticsTab = context.getBean(TotalStatisticsTab.class);
+    statisticsTab = context.getBean(StatisticsTab.class);
 
     StackPane root = new StackPane();
     root.autosize();

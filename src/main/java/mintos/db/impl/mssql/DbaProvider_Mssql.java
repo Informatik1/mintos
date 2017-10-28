@@ -17,6 +17,7 @@ import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 
 import mintos.beans.Transaction;
@@ -25,14 +26,25 @@ import mintos.db.interfaces.IDbaProvider;
 import mintos.util.Utilities;
 
 
-public class DbaProvider_Mssql implements IDbaProvider {
+public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
 
   private static Log log = LogFactory.getLog(DbaProvider_Mssql.class);
+  private Connection conn;
+  private static final String SQL_LOG_MESSAGE = "Execution query: \"{0}\" . Arguments: \"{1}\"";
 
   private String userName;
   private String password;
   private String url;
   private String className;
+
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    getConnection();
+    if(conn == null) {
+      throw new IllegalStateException("Database settings are not correct!");
+    }
+  }
 
 
   @Required
@@ -57,9 +69,6 @@ public class DbaProvider_Mssql implements IDbaProvider {
   public void setClassName(String className) {
     this.className = className;
   }
-
-  Connection conn;
-  private static final String SQL_LOG_MESSAGE = "Execution query: \"{0}\" . Arguments: \"{1}\"";
 
 
   public Connection getConnection() {
