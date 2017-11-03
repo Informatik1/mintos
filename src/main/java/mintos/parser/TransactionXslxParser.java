@@ -119,8 +119,8 @@ public class TransactionXslxParser implements InitializingBean {
             }
             transaction.setDetails(value);
 
-            if(value.equalsIgnoreCase("FX commission")) {
-              transaction.setDetailsType(value);
+            if(value.startsWith("FX commission")) {
+              transaction.setDetailsType("FX commission");
             }
             else if(value.equalsIgnoreCase("Incoming client payment")) {
               transaction.setDetailsType(value);
