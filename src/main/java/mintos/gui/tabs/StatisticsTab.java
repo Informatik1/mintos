@@ -304,6 +304,8 @@ public class StatisticsTab extends Tab {
       moneyTransfer.add("Incoming client payment");
       moneyTransfer.add("Affiliate bonus");
       moneyTransfer.add("Refer a friend bonus");
+      moneyTransfer.add("Cashback bonus");
+      moneyTransfer.add("Reversed late payment fee income");
       double incommingPayment = 0;
       if(year < d.get(Calendar.YEAR) || (year == d.get(Calendar.YEAR) && (month - 1) <= d.get(Calendar.MONTH))) {
         TransactionStatistics incomingPaymentStat = dbProvider
@@ -333,6 +335,8 @@ public class StatisticsTab extends Tab {
         income.add("Outgoing currency exchange transaction");
         income.add("Affiliate bonus");
         income.add("Incoming client payment");
+        income.add("Cashback bonus");
+        income.add("Reversed late payment fee income");
 
         TransactionStatistics stat2 = dbProvider.getTransactionStatistics(currency, year + "", Utilities.getMonthForInt(month - 1), income);
         st.setRealMoney(previousRealMoney + stat2.getTurnoverSum());

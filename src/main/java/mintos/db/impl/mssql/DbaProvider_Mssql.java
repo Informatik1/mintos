@@ -20,6 +20,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import mintos.beans.Transaction;
 import mintos.beans.TransactionStatistics;
 import mintos.db.interfaces.IDbaProvider;
@@ -150,9 +152,9 @@ public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
       ResultSet rs = ps.executeQuery();
       while(rs.next()) {
         String month = rs.getString(1);
-        // String year = rs.getString(2);
+         String year = rs.getString(2);
         Double interest = rs.getDouble(3);
-        map.put(month, interest);
+        map.put(month+" "+year, interest);
       }
     }
     catch(Exception e) {
@@ -445,9 +447,9 @@ public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
       PreparedStatement statement2 = c.prepareStatement(
           "INSERT INTO TRANSACTIONS (TRANSACTION_ID, DATE, DETAILS, DETAILS_TYPE, LOAN_ID, TURNOVER, BALANCE, CURRENCY, EXCHANGE_RATE) " +
               "VALUES (?,?,?,?,?,?,?,?, ?)");
-
-      int i = 0;
-      int j = 1;
+      //
+      // int i = 0;
+      // int j = 1;
 
       for(Transaction entity : list) {
         try {
@@ -461,7 +463,14 @@ public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
             statement2.setDouble(7, entity.getBalance());
             statement2.setString(8, entity.getCurrency());
             statement2.setDouble(9, entity.getExchangeRate());
-            statement2.addBatch();
+            try {
+              statement2.execute();
+            }
+            catch(SQLServerException e) {
+              if(!e.getMessage().startsWith("Violation of PRIMARY KEY")) {
+                log.error("Error: " + e+", entity: "+entity, e);
+              }
+            }
           }
           else {
             statement1.setLong(1, entity.getTransactionId());
@@ -472,20 +481,18 @@ public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
             statement1.setDouble(6, entity.getTurnover());
             statement1.setDouble(7, entity.getBalance());
             statement1.setString(8, entity.getCurrency());
-            statement1.addBatch();
+            try {
+              statement1.execute();
+            }
+            catch(SQLServerException e) {
+              if(!e.getMessage().startsWith("Violation of PRIMARY KEY")) {
+                log.error("Error: " + e+", entity: "+entity, e);
+              }
+            }
           }
         }
         catch(Exception e) {
           log.error("Error: " + e, e);
-        }
-        i++;
-
-        if(i % 1000 == 0 || i == list.size()) {
-          statement1.executeBatch(); // Execute every 1000 items.
-          statement2.executeBatch(); // Execute every 1000 items.
-          log.debug("Batch i=" + j);
-
-          j++;
         }
       }
     }

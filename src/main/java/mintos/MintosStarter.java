@@ -11,6 +11,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mintos.gui.tabs.StatisticsTab;
+import mintos.gui.tabs.TaxesTab;
 import mintos.gui.tabs.TotalStatisticsTab;
 import mintos.gui.tabs.TransactionTableTreeTab;
 
@@ -22,6 +23,7 @@ public class MintosStarter extends Application implements InitializingBean {
   private TransactionTableTreeTab transactionTableTreeTab;
   private TotalStatisticsTab totalStatisticsTab;
   private StatisticsTab statisticsTab;
+  private TaxesTab taxesTab;
 
 
   @Required
@@ -42,6 +44,12 @@ public class MintosStarter extends Application implements InitializingBean {
   }
 
 
+  @Required
+  public void setTaxesTab(TaxesTab taxesTab) {
+    this.taxesTab = taxesTab;
+  }
+
+
   @Override
   public void afterPropertiesSet() throws Exception {
 
@@ -54,6 +62,7 @@ public class MintosStarter extends Application implements InitializingBean {
     transactionTableTreeTab = context.getBean(TransactionTableTreeTab.class);
     totalStatisticsTab = context.getBean(TotalStatisticsTab.class);
     statisticsTab = context.getBean(StatisticsTab.class);
+    taxesTab = context.getBean(TaxesTab.class);
 
     StackPane root = new StackPane();
     root.autosize();
@@ -68,6 +77,7 @@ public class MintosStarter extends Application implements InitializingBean {
     tp.getTabs().add(transactionTableTreeTab);
     tp.getTabs().add(statisticsTab);
     tp.getTabs().add(totalStatisticsTab);
+    tp.getTabs().add(taxesTab);
 
     root.getChildren().add(tp);
 

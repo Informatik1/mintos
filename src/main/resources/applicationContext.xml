@@ -13,6 +13,7 @@
 		<property name="transactionTableTreeTab" ref="transactionTableTreeTab" />
 		<property name="totalStatisticsTab" ref="totalStatisticsTab" />
 		<property name="statisticsTab" ref="statisticsTab" />
+		<property name="taxesTab" ref="taxesTab" />
 	</bean>
 
 	<bean id="interestExpectedRealTotal" class="mintos.gui.tabs.graphs.InterestExpectedReal">
@@ -42,7 +43,7 @@
 		<property name="lineChartMy" ref="lineChartMy" />
 		<property name="defaultCurrency" value="${default.currency}" />
 		<property name="parser" ref="parser" />
-    <property name="inputFolder" value="${xls.parser.inputFolder}" />
+		<property name="inputFolder" value="${xls.parser.inputFolder}" />
 	</bean>
 
 	<bean id="totalStatisticsTab" class="mintos.gui.tabs.TotalStatisticsTab">
@@ -50,11 +51,16 @@
 		<property name="dbProvider" ref="dbProvider" />
 		<property name="interestExpectedReal" ref="interestExpectedRealTotal" />
 	</bean>
-
+	
+	<bean id="taxesTab" class="mintos.gui.tabs.TaxesTab">
+		<constructor-arg name="title" value="Taxes" />
+		<property name="dbProvider" ref="dbProvider" />
+	</bean>
+	
 	<bean id="statisticsTab" class="mintos.gui.tabs.StatisticsTab">
 		<constructor-arg name="title" value="Statistics" />
 		<property name="dbProvider" ref="dbProvider" />
 		<property name="interestExpectedReal" ref="interestExpectedReal" />
-    <property name="defaultCurrency" value="${default.currency}" />
+		<property name="defaultCurrency" value="${default.currency}" />
 	</bean>
 </beans>

@@ -248,7 +248,9 @@ public class TotalStatisticsTab extends Tab {
     for(int i = 0; i < countOfMonths; i++) {
       double inc = 0;
       inc = dbProvider.getInvestment(year, month);
-
+//if(inc == 0){
+//  inc = 20000;
+//}
       NumberBinding previousInvested = Bindings.add(new SimpleDoubleProperty(0), 0);
       double previousRealMoney = 0;
 
@@ -279,6 +281,7 @@ public class TotalStatisticsTab extends Tab {
         income.add("Outgoing currency exchange transaction");
         income.add("Affiliate bonus");
         income.add("Incoming client payment");
+        income.add("Withdraw application");
 
         TransactionStatistics stat2 = dbProvider.getTransactionStatistics("EUR", year + "", Utilities.getMonthForInt(month - 1), income);
         TransactionStatistics stat3 = dbProvider.getTransactionStatistics("PLN", year + "", Utilities.getMonthForInt(month - 1), income);

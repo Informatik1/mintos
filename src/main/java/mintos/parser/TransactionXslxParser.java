@@ -27,6 +27,7 @@ public class TransactionXslxParser implements InitializingBean {
   private String dateFormat;
   private SimpleDateFormat sdf;
 
+
   @Required
   public void setDateFormat(String dateFormat) {
     this.dateFormat = dateFormat;
@@ -40,7 +41,7 @@ public class TransactionXslxParser implements InitializingBean {
 
 
   public List<Transaction> readXslx(String inputName) throws IOException {
-   File input = new File(inputName);
+    File input = new File(inputName);
     if(!input.exists()) {
       throw new FileNotFoundException("File does not exists");
     }
@@ -136,6 +137,15 @@ public class TransactionXslxParser implements InitializingBean {
             }
             else if(value.startsWith("Refer a friend bonus")) {
               transaction.setDetailsType("Refer a friend bonus");
+            }
+            else if(value.equalsIgnoreCase("Reversed incoming client payment")) {
+              transaction.setDetailsType("Incoming client payment");
+            }
+            else if(value.startsWith("Cashback bonus")) {
+              transaction.setDetailsType("Cashback bonus");
+            }
+            else if(value.startsWith("Withdraw application")) {
+              transaction.setDetailsType("Withdraw application");
             }
 
             if(value.contains("Exchange Rate")) {

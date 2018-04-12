@@ -134,11 +134,11 @@ public class TransactionTableTreeTab extends Tab {
 
     totalInterestTf.setEditable(false);
     totalInterestTf
-        .setText("" + dbProvider.getTransactionStatistics(defaultCurrency, "2017", null, Utilities.getTotalInterestTypes()).getTurnoverSum());
+        .setText("" + dbProvider.getTransactionStatistics(defaultCurrency, null, null, Utilities.getTotalInterestTypes()).getTurnoverSum());
 
     totalOutcomeTf.setEditable(false);
     totalOutcomeTf
-        .setText("" + dbProvider.getTransactionStatistics(defaultCurrency, "2017", null, Utilities.getTotalOutcomeTypes()).getTurnoverSum());
+        .setText("" + dbProvider.getTransactionStatistics(defaultCurrency, null, null, Utilities.getTotalOutcomeTypes()).getTurnoverSum());
 
     currencyComboBox.setValue(defaultCurrency);
 
@@ -159,11 +159,11 @@ public class TransactionTableTreeTab extends Tab {
         if(currencyComboBox.getValue() != null) {
           refreshTableTree();
           totalInterestTf.setText(
-              "" + dbProvider.getTransactionStatistics(currencyComboBox.getValue(), "2017", null, Utilities.getTotalInterestTypes())
+              "" + dbProvider.getTransactionStatistics(currencyComboBox.getValue(), null, null, Utilities.getTotalInterestTypes())
                   .getTurnoverSum());
 
           totalOutcomeTf.setText(
-              "" + dbProvider.getTransactionStatistics(currencyComboBox.getValue(), "2017", null, Utilities.getTotalOutcomeTypes()).getTurnoverSum());
+              "" + dbProvider.getTransactionStatistics(currencyComboBox.getValue(), null, null, Utilities.getTotalOutcomeTypes()).getTurnoverSum());
 
           lineChartMy.reloadData(currencyComboBox.getValue(), Utilities.getTotalInterestTypes());
         }

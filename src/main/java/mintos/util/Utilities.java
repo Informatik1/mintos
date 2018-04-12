@@ -20,8 +20,8 @@ public class Utilities {
 
   private static Log log = LogFactory.getLog(Utilities.class);
 
-  private static Set<String> totalInterest = new HashSet<>();
-  private static Set<String> totalOutcome = new HashSet<>();
+  private static Set<String> totalInterest = new HashSet<String>();
+  private static Set<String> totalOutcome = new HashSet<String>();
 
 
   public static String getMonthForInt(int num) {
@@ -60,6 +60,10 @@ public class Utilities {
       totalInterest.add("Discount/premium for secondary market transaction");
       totalInterest.add("Secondary market fee");
       totalInterest.add("FX commission");
+      totalInterest.add("Cashback bonus");
+      totalInterest.add("Refer a friend bonus");
+      totalInterest.add("Affiliate bonus");
+      totalInterest.add("Reversed late payment fee income");
     }
     return totalInterest;
   }
@@ -69,6 +73,7 @@ public class Utilities {
     if(CollectionUtils.isEmpty(totalOutcome)) {
       totalOutcome.add("Investment principal rebuy Rebuy");
       totalOutcome.add("Investment principal repayment");
+      totalOutcome.add("Withdraw application");
 
     }
     return totalOutcome;
