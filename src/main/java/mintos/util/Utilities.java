@@ -22,6 +22,8 @@ public class Utilities {
 
   private static Set<String> totalInterest = new HashSet<String>();
   private static Set<String> totalOutcome = new HashSet<String>();
+  private static Set<String> exp = new HashSet<String>();
+  private static Set<String> fees = new HashSet<String>();
 
 
   public static String getMonthForInt(int num) {
@@ -77,6 +79,24 @@ public class Utilities {
 
     }
     return totalOutcome;
+  }
+
+
+  public static Set<String> getTotalExpensesTypes() {
+    if(CollectionUtils.isEmpty(exp)) {
+      exp.add("Investment principal rebuy Rebuy");
+      exp.add("Investment principal repayment");
+    }
+    return exp;
+  }
+
+
+  public static Set<String> getTotalFeesTypes() {
+    if(CollectionUtils.isEmpty(fees)) {
+      fees.add("Secondary market fee");
+      fees.add("FX commission");
+    }
+    return fees;
   }
 
 

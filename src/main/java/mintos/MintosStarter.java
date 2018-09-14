@@ -73,6 +73,7 @@ public class MintosStarter extends Application implements InitializingBean {
     transactionTableTreeTab.init(scene.widthProperty());
     statisticsTab.init(scene.widthProperty());
     totalStatisticsTab.init(scene.widthProperty());
+    taxesTab.init(scene.widthProperty());
 
     tp.getTabs().add(transactionTableTreeTab);
     tp.getTabs().add(statisticsTab);

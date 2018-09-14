@@ -176,7 +176,7 @@ public class TransactionTableTreeTab extends Tab {
       public void handle(ActionEvent event) {
         try {
 
-          dbProvider.removeAllTransactions();
+//          dbProvider.removeAllTransactions();
           removeTreeItems();
 
           parseAndSaveTransactions();
