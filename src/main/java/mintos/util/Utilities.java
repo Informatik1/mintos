@@ -21,6 +21,7 @@ public class Utilities {
   private static Log log = LogFactory.getLog(Utilities.class);
 
   private static Set<String> totalInterest = new HashSet<String>();
+  private static Set<String> totalIncome = new HashSet<String>();
   private static Set<String> totalOutcome = new HashSet<String>();
   private static Set<String> exp = new HashSet<String>();
   private static Set<String> fees = new HashSet<String>();
@@ -50,22 +51,44 @@ public class Utilities {
     return (cal.get(Calendar.MONTH) + 1);
   }
 
+  public static Set<String> getTotalIncomeTypes() {
+    if(CollectionUtils.isEmpty(totalIncome)) {
+      totalIncome.add("Investment principal repayment");
+      
+      totalIncome.add("Interest income");
+      totalIncome.add("Delayed interest income");      
+      totalIncome.add("Interest income on rebuy");
+      totalIncome.add("Delayed interest income on rebuy");
+      totalIncome.add("Late payment fee income");
+      totalIncome.add("Discount/premium for secondary market transaction");
+
+
+      totalIncome.add("Reversed late payment fee income");
+      totalIncome.add("Investment principal rebuy Rebuy");
+      totalIncome.add("Investment principal repayment");
+      
+//      totalInterest.add("Refer a friend bonus");
+//      totalInterest.add("Affiliate bonus");
+    }
+    return totalIncome;
+  }
 
   public static Set<String> getTotalInterestTypes() {
     if(CollectionUtils.isEmpty(totalInterest)) {
       totalInterest.add("Interest income");
-      totalInterest.add("Delayed interest income");
-      totalInterest.add("Late payment fee income");
+      totalInterest.add("Delayed interest income");      
       totalInterest.add("Interest income on rebuy");
       totalInterest.add("Delayed interest income on rebuy");
-
+      totalInterest.add("Late payment fee income");
+      totalInterest.add("Bad debt");      
       totalInterest.add("Discount/premium for secondary market transaction");
-      totalInterest.add("Secondary market fee");
       totalInterest.add("FX commission");
-      totalInterest.add("Cashback bonus");
-      totalInterest.add("Refer a friend bonus");
-      totalInterest.add("Affiliate bonus");
+      totalInterest.add("Secondary market fee");
       totalInterest.add("Reversed late payment fee income");
+      
+//      totalInterest.add("Cashback bonus");
+//      totalInterest.add("Refer a friend bonus");
+//      totalInterest.add("Affiliate bonus");
     }
     return totalInterest;
   }
@@ -95,6 +118,7 @@ public class Utilities {
     if(CollectionUtils.isEmpty(fees)) {
       fees.add("Secondary market fee");
       fees.add("FX commission");
+      fees.add("Bad debt");
     }
     return fees;
   }

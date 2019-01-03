@@ -48,19 +48,31 @@ public class TaxesTab extends Tab {
       grid.setVgap(5);
       grid.setHgap(5);
       grid.add(new Label("Taxes " + year), 0, 0);
-      grid.add(new Label("Interest"), 0, 1);
+      grid.add(new Label("Income"), 0, 1);
+      TextField totalIncomeTf = new TextField();
+      totalIncomeTf
+          .setText("" + dbProvider.getTransactionStatistics("EUR", year, null, Utilities.getTotalIncomeTypes()).getTurnoverSum());
+
+      grid.add(totalIncomeTf, 1, 1);
+      
+      
+      grid.add(new Label("Interest"), 0, 2);
       TextField totalInterestTf = new TextField();
       totalInterestTf
           .setText("" + dbProvider.getTransactionStatistics("EUR", year, null, Utilities.getTotalInterestTypes()).getTurnoverSum());
 
-      grid.add(totalInterestTf, 1, 1);
+      grid.add(totalInterestTf, 1, 2);
       
       TextField totalOutcomeTf = new TextField();
+         Double totalOutcome = dbProvider.getTransactionStatistics("EUR", year, null, Utilities.getTotalExpensesTypes()).getTurnoverSum();
+      Double fees = dbProvider.getTransactionStatistics("EUR", year, null, Utilities.getTotalFeesTypes()).getTurnoverSum();
+     log.debug(fees);
       totalOutcomeTf
-          .setText("" + dbProvider.getTransactionStatistics("EUR", year, null, Utilities.getTotalExpensesTypes()).getTurnoverSum());
-
-      grid.add(new Label("Outcome"), 0, 2);
-      grid.add(totalOutcomeTf, 1, 2);
+          .setText("" + (totalOutcome - fees));
+      
+      
+      grid.add(new Label("Outcome"), 0, 3);
+      grid.add(totalOutcomeTf, 1, 3);
 
       vbox.getChildren().add(grid);
     }

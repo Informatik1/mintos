@@ -120,6 +120,9 @@ public class TransactionXslxParser implements InitializingBean {
             }
             transaction.setDetails(value);
 
+            if(value.startsWith("Bad debt")) {
+              transaction.setDetailsType("Bad debt");
+            }
             if(value.startsWith("FX commission")) {
               transaction.setDetailsType("FX commission");
             }
@@ -173,8 +176,10 @@ public class TransactionXslxParser implements InitializingBean {
           }
         }
       }
-      if(transaction.getTransactionId() != null)
+//      if(transaction.getTransactionId() != null)
         transactionList.add(transaction);
+//      else
+        
     }
 
     return transactionList;

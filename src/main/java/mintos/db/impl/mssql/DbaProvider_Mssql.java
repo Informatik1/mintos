@@ -450,8 +450,14 @@ public class DbaProvider_Mssql implements IDbaProvider, InitializingBean {
       //
       // int i = 0;
       // int j = 1;
-
+long generatedId = 0;
       for(Transaction entity : list) {
+        if(entity.getTransactionId() == null) {
+          entity.setTransactionId(generatedId);
+          entity.setDate(new Timestamp(System.currentTimeMillis()));
+          generatedId++;
+          entity.setDetailsType("Other");
+        }
         try {
           if(entity.getExchangeRate() != null) {
             statement2.setLong(1, entity.getTransactionId());

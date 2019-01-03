@@ -248,9 +248,9 @@ public class TotalStatisticsTab extends Tab {
     for(int i = 0; i < countOfMonths; i++) {
       double inc = 0;
       inc = dbProvider.getInvestment(year, month);
-if(inc == 0){
-  inc = 10000;
-}
+//if(inc == 0){
+//  inc = 15000;
+//}
       NumberBinding previousInvested = Bindings.add(new SimpleDoubleProperty(0), 0);
       double previousRealMoney = 0;
 
